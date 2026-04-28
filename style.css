@@ -1,0 +1,124 @@
+:root {
+    --persib-blue: #004792;
+    --persib-yellow: #f8e71c;
+    --white: #ffffff;
+    --light-blue: #e6f0ff;
+    --shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: var(--persib-blue);
+    background: linear-gradient(135deg, #003366 0%, #004792 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden;
+}
+
+#app {
+    width: 100%;
+    max-width: 400px; /* Mobile width constraint on desktop */
+}
+
+.card {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.image-container {
+    margin-bottom: 24px;
+}
+
+.image-container img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--light-blue);
+    padding: 10px;
+}
+
+h1 {
+    color: var(--persib-blue);
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+p {
+    color: #555;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    min-height: 120px;
+}
+
+button {
+    padding: 16px;
+    border: none;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#btn-yes {
+    background: var(--persib-blue);
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(0, 71, 146, 0.3);
+}
+
+#btn-yes:active {
+    transform: scale(0.95);
+}
+
+#btn-no {
+    background: #f0f0f0;
+    color: #888;
+}
+
+/* For the "run away" effect */
+#btn-no.absolute {
+    position: fixed;
+    z-index: 999;
+    width: 150px;
+}
+
+.hidden {
+    display: none;
+}
+
+#success-container h1 {
+    color: var(--persib-blue);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card > div:not(.hidden) {
+    animation: fadeIn 0.6s ease-out forwards;
+}
