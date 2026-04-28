@@ -1,56 +1,46 @@
 document.addEventListener('DOMContentLoaded', () => {
     const btnYes = document.getElementById('btn-yes');
     const btnNo = document.getElementById('btn-no');
-    const contentContainer = document.getElementById('content-container');
-    const successContainer = document.getElementById('success-container');
+    const content = document.getElementById('content');
+    const success = document.getElementById('success');
 
-    // Handle Yes Button
+    // Tombol Yes: tampilkan pesan sukses
     btnYes.addEventListener('click', () => {
-        contentContainer.classList.add('hidden');
-        successContainer.classList.remove('hidden');
-        
-        // Fireworks/Confetti effect
-        const duration = 5 * 1000;
-        const animationEnd = Date.now() + duration;
-        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+        content.classList.add('hidden');
+        success.classList.remove('hidden');
+    });
 
-        function randomInRange(min, max) {
-            return Math.random() * (max - min) + min;
+    // Fungsi memindahkan tombol No ke posisi acak yang masih dalam layar
+    function moveBtn() {
+        if (!btnNo.classList.contains('floating')) {
+            btnNo.classList.add('floating');
         }
 
-        const interval = setInterval(function() {
-            const timeLeft = animationEnd - Date.now();
+        // Hitung batas agar tombol tidak keluar layar
+        const maxX = window.innerWidth - btnNo.offsetWidth;
+        const maxY = window.innerHeight - btnNo.offsetHeight;
 
-            if (timeLeft <= 0) {
-                return clearInterval(interval);
-            }
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
 
-            const particleCount = 50 * (timeLeft / duration);
-            // since particles fall down, start a bit higher than random
-            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-            confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-        }, 250);
-    });
+        btnNo.style.left = randomX + 'px';
+        btnNo.style.top = randomY + 'px';
+    }
 
-    // Handle No Button (Run Away Effect)
-    const moveButton = () => {
-        const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
-        const y = Math.random() * (window.innerHeight - btnNo.offsetHeight);
-        
-        btnNo.classList.add('absolute');
-        btnNo.style.left = `${x}px`;
-        btnNo.style.top = `${y}px`;
-    };
-
-    btnNo.addEventListener('mouseover', moveButton);
+    // Di HP: saat mulai disentuh, tombol kabur
     btnNo.addEventListener('touchstart', (e) => {
         e.preventDefault();
-        moveButton();
+        moveBtn();
     });
-    
-    // Fallback if they somehow click it
+
+    // Di desktop: saat kursor mendekat, tombol kabur
+    btnNo.addEventListener('mouseover', () => {
+        moveBtn();
+    });
+
+    // Fallback: jika benar-benar berhasil diklik
     btnNo.addEventListener('click', (e) => {
         e.preventDefault();
-        moveButton();
+        moveBtn();
     });
 });
