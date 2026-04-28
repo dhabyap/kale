@@ -85,8 +85,13 @@ button {
 }
 
 #btn-no {
-    background: #eee;
-    color: #777;
+    background: #fff;
+    color: #c0392b;
+    border: 1.5px solid #e74c3c;
+}
+
+#btn-no:active {
+    background: #fff5f5;
 }
 
 /* State saat tombol No kabur */
