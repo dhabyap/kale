@@ -4,10 +4,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const content = document.getElementById('content');
     const success = document.getElementById('success');
 
-    // Tombol Yes: tampilkan pesan sukses
+    // Tombol Yes: tampilkan pesan sukses lalu buka WhatsApp
     btnYes.addEventListener('click', () => {
         content.classList.add('hidden');
         success.classList.remove('hidden');
+
+        const phone = '6289656380397';
+        const message = encodeURIComponent('Hii, aku mau nonton Persib bareng! 💙⚽');
+        setTimeout(() => {
+            window.open('https://wa.me/' + phone + '?text=' + message, '_blank');
+        }, 800);
     });
 
     // Fungsi memindahkan tombol No ke posisi acak yang masih dalam layar
