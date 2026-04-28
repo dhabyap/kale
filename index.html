@@ -7,12 +7,147 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        background: #f5f5f5;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      #app {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        padding: 36px 28px;
+        width: 100%;
+        max-width: 360px;
+      }
+
+      .label {
+        color: #888;
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+      }
+
+      h1 {
+        font-size: 1.7rem;
+        font-weight: 600;
+        color: #111;
+        line-height: 1.3;
+        margin-bottom: 24px;
+      }
+
+      .detail {
+        background: #f0f5ff;
+        border-left: 3px solid #004792;
+        border-radius: 6px;
+        padding: 14px 16px;
+        margin-bottom: 16px;
+      }
+
+      .detail p {
+        font-size: 0.95rem;
+        color: #333;
+        line-height: 1.8;
+      }
+
+      .note {
+        font-size: 0.85rem;
+        color: #999;
+        margin-bottom: 28px;
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      button {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        font-family: 'Poppins', sans-serif;
+        cursor: pointer;
+      }
+
+      #btn-yes {
+        background: #004792;
+        color: #fff;
+      }
+
+      #btn-yes:active {
+        background: #003366;
+      }
+
+      #btn-no {
+        background: #fff;
+        color: #c0392b;
+        border: 1.5px solid #e74c3c;
+      }
+
+      #btn-no:active {
+        background: #fff5f5;
+      }
+
+      #btn-no.floating {
+        position: fixed;
+        width: auto;
+        min-width: 140px;
+        padding: 12px 20px;
+        z-index: 999;
+        transition: none;
+      }
+
+      #success {
+        text-align: center;
+        padding: 10px 0;
+        display: none;
+      }
+
+      #success h1 {
+        font-size: 2rem;
+        margin-bottom: 12px;
+      }
+
+      #success p {
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 24px;
+      }
+
+      #btn-wa {
+        display: block;
+        background: #25D366;
+        color: #fff;
+        text-decoration: none;
+        text-align: center;
+        padding: 14px;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
       <div id="content">
-        <p class="label">Halo, Niskala   👋</p>
+        <p class="label">Halo, Niskala 👋</p>
         <h1>Nonton Persib<br />bareng, yuk?</h1>
         <div class="detail">
           <p>⚽ Persib vs Bayangkara</p>
@@ -21,17 +156,47 @@
         </div>
         <p class="note">Santai aja, kalo lagi sibuk gapapa 😊</p>
         <div class="buttons">
-          <button id="btn-yes">Yuk, mau! 💙</button>
-          <button id="btn-no">Kayaknya gak deh</button>
+          <button id="btn-yes" onclick="showSuccess()">Yuk, mau! 💙</button>
+          <button
+            id="btn-no"
+            onmouseover="kabur()"
+            ontouchstart="kabur(); return false;"
+            onclick="kabur(); return false;"
+          >
+            Kayaknya gak deh
+          </button>
         </div>
       </div>
-      <div id="success" class="hidden">
+
+      <div id="success">
         <h1>Yeay! 🎉</h1>
         <p>Sip! Nanti info tempat<br />& jamnya nyusul ya 💙</p>
-        <a id="btn-wa" href="#" target="_blank">Kirim pesan ke WA 💬</a>
+        <a
+          id="btn-wa"
+          href="https://wa.me/6289656380397?text=Hii%2C%20aku%20mau%20nonton%20Persib%20bareng!%20%F0%9F%92%99%E2%9A%BD"
+          target="_blank"
+        >
+          Kirim pesan ke WA 💬
+        </a>
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+      function showSuccess() {
+        document.getElementById('content').style.display = 'none';
+        document.getElementById('success').style.display = 'block';
+      }
+
+      function kabur() {
+        var btn = document.getElementById('btn-no');
+        btn.classList.add('floating');
+        var maxX = window.innerWidth - btn.offsetWidth;
+        var maxY = window.innerHeight - btn.offsetHeight;
+        var x = Math.floor(Math.random() * maxX);
+        var y = Math.floor(Math.random() * maxY);
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+      }
+    </script>
   </body>
 </html>
